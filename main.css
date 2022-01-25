@@ -6,7 +6,14 @@
     display:none;
     
 }
-
+.left-menu{
+    width:150px;
+    height:100%;
+    background: black;
+    color: white;
+    position:fixed;
+    margin-left:-150px;
+}
 .yellow-bg{
     background: yellow;
 }
@@ -44,12 +51,13 @@
     width:100%;
     height:100%;
     display:none;
+    margin-top: -1200px;
     /* opacity:0; 또는 visibility:hidden */
 }
 .white-background{
     background:white;
     width:80%;
-    margin:auto;
+    
     margin:100px auto;
     padding:20px;
     border-radius:5px;

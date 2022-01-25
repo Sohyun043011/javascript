@@ -13,6 +13,14 @@
   </head>
   <body>
 
+    <!-- <h3 id="hi">안녕</h3> -->
+
+    <div class="left-menu">
+      <p>Menu Title</p>
+    </div>
+
+
+    
     <!-- 모달 창 만들기 
         모달창처럼 모든 요소를 투과하여 맨 앞에 존재하는 요소는 
         일단 HTML 자체는 <body>태그 바로 다음에 오는게 좋습니다. 
@@ -60,8 +68,8 @@
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <a class="btn btn-primary btn-lg login" href="#" role="button">Log In
-            
         </a>
+        <a class="btn btn-primary btn-lg " href="#" id="show-menu" role="button">Show Menu</a>
       </div>
 
     
@@ -97,14 +105,24 @@
             $('.black-background').hide();
         })
         $('.login').on('click',function(){
-            $('.black-background').show();
+            $('.black-background').show().animate({marginTop:'0px'});
+            
             
         });
+        // $('.login').on('click',function(){
+        //     $('.white-background').animate({marginTop:'100px'});
+            
+        // });
         $('#nav-sub-btn').click(function(){
             $('.nav-sub').slideToggle();
             // slide up, down을 왔다갔다 하게 해주는 기능
             //slideToggle, fadeToggle,toggle 다 있음.
         });
+        
+        $('#show-menu').click(function(){
+          $('.left-menu').animate({marginLeft:'0px'});
+        });
+
 
         
     </script>
