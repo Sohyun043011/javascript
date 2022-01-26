@@ -19,13 +19,10 @@
       <p>Menu Title</p>
     </div>
 
-
-    
     <!-- 모달 창 만들기 
         모달창처럼 모든 요소를 투과하여 맨 앞에 존재하는 요소는 
         일단 HTML 자체는 <body>태그 바로 다음에 오는게 좋습니다. 
     -->
-
     <div class="black-background">
         <div class="white-background">
             <p>로그인하세요</p>
@@ -46,10 +43,32 @@
         </div>
     </div>
 
+    <script>
+      $('.black-background').click(function(e){
+        
+        // 만약 지금 실제로 클릭한 것이 black background일 때만 닫아주세요
+        // 이벤트 리스너 안에서 쓸 수 있는 이벤트 함수
+        // e.target;//지금 실제로 클릭한 요소
+        // e.currentTarget; //지금 이벤트리스너가 달린 곳
+        // $(this);//지금 이벤트리스너가 달린 곳
+        // e.preventDefault();//기본 동작 막기
+        // var className = $(e.target).attr('class');
+        
+        
+        if(e.target==e.currentTarget){
+          $('.black-background').hide();
 
+        }
+        
+
+        // 이렇게 짜면 이벤트 버블링 현상때문에 
+        // 다른 요소를 눌러도 항상 닫힘
+
+      });
+    </script>
     <!-- nav 바 만들기 -->
     <div class="menu-bar">
-        <h4>Shirts Studio</h4>
+        <h4 class="menu-title">Shirts Studio</h4>
         <a id="nav-sub-btn">Products</a>
     </div>
 
@@ -59,7 +78,29 @@
         <li class="list-group-item">Shirts</li>
         <li class="list-group-item">Skirts</li>
         <li class="list-group-item">Shoes</li>
-      </ul>
+    </ul>
+    <script>
+      // 스크롤바를 내리면 menu-bar의 투명했던 background color를 색깔있게 변화
+
+      //window : viewport.
+      $(window).on('scroll',function(){
+        // 스크롤바를 100px 내렸을 때만 동작하게
+        // $(window).scrollTop();  //스크롤된 높이를 위에서부터 몇px 스크롤 되었는지 알려줌
+
+        if($(window).scrollTop()>=100){
+          $('.menu-bar').addClass('nav-black');
+          $('.menu-title').addClass('small-font');
+        }
+        else{
+          $('.menu-bar').removeClass('nav-black');
+          $('.menu-title').removeClass('small-font');
+        }
+       
+      });
+      
+
+
+    </script>
 
 
     <div class="jumbotron main-background">
@@ -70,27 +111,193 @@
         <a class="btn btn-primary btn-lg login" href="#" role="button">Log In
         </a>
         <a class="btn btn-primary btn-lg " href="#" id="show-menu" role="button">Show Menu</a>
+    </div>
+    
+    <h4 class="my-4 text-center">showCase</h4>
+
+    <div style="overflow: hidden;  position:relative">
+      <!-- scroll bar 없애려고 overflow hidden 사용함. -->
+      <div class="slide-container">
+        
+        
+        <div class="slide-box"> 
+          <div class="imgclass" style="background-image: url('/img/photo1.jpg')"></div>
+        </div>
+        <div class="slide-box">
+          <div class="imgclass" style="background-image: url('/img/portfolio-2.jpg');"></div>
+        </div>
+        <div class="slide-box">
+          <div class="imgclass" style="background-image: url('/img/portfolio-3.jpg');"></div>
+        </div>
       </div>
+      <button class="nextbtn">NEXT</button>
+    </div>
+    
+      <button class="slide-1">1</button>
+      <button class="slide-2">2</button>
+      <button class="slide-3">3</button>
+    
+
+    <div class="my-5"></div>
+
+    <style>
+      ul.list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+      content: '';
+      display: block;
+      clear: both;
+      }
+      .tab-button {
+      display: block;
+      padding: 10px 20px 10px 20px;
+      float: left;
+      margin-right: -1px;
+      margin-bottom: -1px;
+      color: grey;
+      text-decoration: none;
+      cursor: pointer;
+      }
+      /* active를 부착하면 버튼을 주황색으로 표시해줌 */
+      .active {
+      border-top: 2px solid orange;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid white;
+      border-left: 1px solid #ccc;
+      color: black;
+      margin-top: -2px;
+      }
+      .tab-content {
+      display: none;
+      padding: 10px;
+      }
+      /*  show를 부착하면 원하는 내용을 보여줄 수 있음 */
+      .show {
+        
+      display: block;
+      }
+    </style>
+    
+   
+   
+    
+    <div class="container mt-5">
+      <ul class="list">
+        <li class="tab-button" data-id="0">Products</li>
+
+        <li class="tab-button active" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
+      </ul>
+    
+      <div class="tab-content">
+        <p>상품설명입니다. Product</p>
+      </div>
+      
+      <div class="tab-content show">
+        <p>상품정보입니다. InforMation</p>
+      </div>
+      <div class="tab-content">
+        <p>배송정보입니다. Shipping</p>
+      </div>
+    </div>
 
     
+    <script src="./tab.js"></script>
     <script>
+      var seq = 1;
+      $('.nextbtn').click(function(){
+        // 지금보이는사진이라는 변수가 1이면 박스를 -100vw 만큼 움직이게 만드시면 되고
+        // 지금보이는사진이라는 변수가 2면 박스를 -200vw 만큼 움직이게 만드시면 됩니다.
+        //  지금 1번 그림을 보고 있다면 2번 그림으로 
+        if(seq<3){
+          var move = -seq*100;
+          var str = move+'vw';
+          console.log(str);
+          $('.slide-container').css('transform','translateX('+str+')');
+          seq++;
+        }
+
+        // if(seq>0){
+        //   move = seq*100;
+        //   $('.slide-container').css('transform','translateX()');
+        //   seq++;
+        // }
+        // if(seq==1){
+        //   seq++;
+        //   $('.slide-container').css('transform','translateX(-100vw)');
+        // }
+        // else if(seq==2){
+        //   seq++;
+        //   $('.slide-container').css('transform','translateX(-200vw)');
+        // }
+        // else{
+        //   seq = 1;
+        //   $('.slide-container').css('transform','translateX(0vw)');
+
+        // }
+        //  지금 2번 그림을 보고 있다면 3번 그림으로
+        //  지금 3번 그림을 보고 있다면 4번 그림으로
+      });
+      $('.beforebtn').click(function(){
+        if(seq>0){
+          seq-=2;
+          var move = -seq*100;
+          var str = move+'vw';
+          console.log(str);
+          $('.slide-container').css('transform','translateX('+str+')');
+          
+        }
+      });
+      $('.slide-1').click(function(){
+        
+        $('.slide-container').css('transform','translateX(0vw)');
+      })
+      $('.slide-2').click(function(){
+        $('.slide-container').css('transform','translateX(-100vw)');
+      })
+      $('.slide-3').click(function(){
+        $('.slide-container').css('transform','translateX(-200vw)');
+      })
+    </script>
+    
+
+    <script>
+      
 
        
         $('form').on('submit',function(e){
 
-            if($('#email').val()==""){
-                //email 칸에 입력된 것이 없다면;
-                
-                $('#emailAlert').show();
-                e.preventDefault(); 
-            }
-            if($('#pw').val()==""){
+
+        //eamil 정규식
+        var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        //폼 전송시 이메일input의 이메일형식 검사와 공백검사를 동시에
+
+        if(emailRule.test($('#email').val())==false){
+            //email 형식이 제대로 되지 않앗다면
+            $('#emailAlert').show();
+            e.preventDefault(); 
+        }
+        else{
+          //공백 검사
+          if($('#email').val()==""){
+            $('#emailAlert').show();
+            e.preventDefault(); 
+          }
+        }
+
+        //폼 전송시 패스워드란에 영어대문자가 없으면 폼 전송을 막는 코드 추가하기
+            
+        var pwRule = /[A-Z]/
+            if(pwRule.test($('#pw').val())==false){
                    $('#pwAlert').show();
                    e.preventDefault(); 
                 }
            
-            // 폼의 전송을 막는 코드.
-
         });
 
         // input에 입력된 값이 '안녕' 일때만 login button 누를시 모달 창 뜨게 하기
