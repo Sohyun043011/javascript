@@ -36,26 +36,44 @@
     <script>
         // html 동적으로 생성하기
 
+        var size = [26,28,30,32,34,36];
+
         $('#option1').on('change',function(){
-            if($('#option1').val()=="셔츠"){
-                $('#option2').html('');
-                var template = `<option>95</option>
-                <option>100</option>
-                <option>105</option>`;
-                $('#option2').append(template);
+            if($('#option1').val()=="바지"){
+               
+                size.forEach(function(i){
+                    // size의 갯수만큼 반복해줌.
+                    // i값은 size안에 있는 하나하나의 데이터
+                    var template2 = `<option>${i}</option>`;
+                    $('#option2').append(template2);
+
+                })
+                // for(var i=0;i<size.length;i++){
+                //     // ${}는 문자열 안에 변수를 넣을 수 있음.
+                //     var template2 = `<option>${size[i]}</option>`;
+                //     $('#option2').append(template2);
+                // }
                 $('.size-select').show();
             }
-            else if($('#option1').val()=="모자"){
-                $('.size-select').hide();
-            }
-            else if($('#option1').val()=="바지"){
-                $('#option2').html('');
-                var template2 = `<option>28</option>
-                <option>30</option>
-                <option>32</option>`;
-                $('#option2').append(template2);
-                $('.size-select').show();
-            }
+            // if($('#option1').val()=="셔츠"){
+            //     $('#option2').html('');
+            //     var template = `<option>95</option>
+            //     <option>100</option>
+            //     <option>105</option>`;
+            //     $('#option2').append(template);
+            //     $('.size-select').show();
+            // }
+            // else if($('#option1').val()=="모자"){
+            //     $('.size-select').hide();
+            // }
+            // else if($('#option1').val()=="바지"){
+            //     $('#option2').html('');
+            //     var template2 = `<option>28</option>
+            //     <option>30</option>
+            //     <option>32</option>`;
+            //     $('#option2').append(template2);
+            //     $('.size-select').show();
+            // }
         })
     </script>
   </body>
