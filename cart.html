@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="card-group container">
+        <div class="card">
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            
+          </div>
+        </div>
+        <div class="card" >
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            
+          </div>
+        </div>
+      </div>
+      <div class="container my-4">
+          <button class="btn btn-danger" id="priceSort">가격순정렬</button>
+          <button class="btn btn-danger" id="kanadaSort">가나다순정렬</button>
+          <button class="btn btn-danger" id="omanSort">5만원이하정렬</button>
+          
+      </div>
+      <script>
+        //   서버가 보낸 쇼핑몰 상품데이터로 가정
+        var products = [
+          { id : 0, price : 70000, title : 'Blossom Dress' },
+          { id : 1, price : 50000, title : 'Springfield Shirt' },
+          { id : 2, price : 60000, title : 'Black Monastery' }
+        ]
+
+        for(var i=0;i<3;i++){
+            $('.card-body').eq(i).append(
+                `<h5>${products[i].title}</h5>
+                <p>가격 : ${products[i].price}</p>
+                <button class="btn btn-danger">주문하기</button>`
+            );
+        }
+
+        $('#priceSort').on('click',function(){
+            products.sort(function(a,b){
+                return a.price-b.price;
+            });
+
+            for(var i=0;i<3;i++){
+                $('.card-body').eq(i).html('');
+                $('.card-body').eq(i).append(
+                `<h5>${products[i].title}</h5>
+                <p>가격 : ${products[i].price}</p>
+                <button class="btn btn-danger">주문하기</button>`
+                );
+            };
+        });
+
+        $('#kanadaSort').on('click',function(){
+            console.log('가나다순정렬');
+            products.sort(function(a,b){
+                if(a.title<b.title==true){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            });
+            for(var i=0;i<3;i++){
+                $('.card-body').eq(i).html('');
+                $('.card-body').eq(i).append(
+                `<h5>${products[i].title}</h5>
+                <p>가격 : ${products[i].price}</p>
+                <button class="btn btn-danger">주문하기</button>`
+                );
+            };
+        })
+        
+        $('#omanSort').on('click',function(){
+            //5만원 이하 상품만 보이게
+            var newProducts = products.filter(function(a){
+                return a.price<=60000;
+            })
+            console.log(newProducts.length);
+            $('.card-group').html('');
+
+            for (var i=0;i<newProducts.length;i++){
+                $('.card-group').append(  
+                `<div class="card">
+                <img src="https://via.placeholder.com/600">
+                <div class="card-body">
+            
+                <h5>${newProducts[i].title}</h5>
+                <p>가격 : ${newProducts[i].price}</p>
+                <button class="btn btn-danger">주문하기</button>
+                </div>
+                </div>`
+                );
+            }
+        });
+        
+      
+        
+      </script>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+  
+  </body>
+</html>
