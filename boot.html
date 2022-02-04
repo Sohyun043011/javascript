@@ -44,6 +44,13 @@
     </div>
 
     <script>
+      
+      
+      
+
+
+
+
       $('.black-background').click(function(e){
         
         // 만약 지금 실제로 클릭한 것이 black background일 때만 닫아주세요
@@ -182,7 +189,36 @@
       }
     </style>
     
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
+    <script>
+      var 이미지1 = document.querySelectorAll('.imgclass')[0];
+      var 매니저 = new Hammer.Manager(이미지1);
+      매니저.add(new Hammer.Pan({ threshold: 0 }));  
+      //  pan이라는 이벤트는 Hammer.js가 제공하는 "터치 후 슬라이드 했을 때"를 체크해주는 이벤트
+      매니저.on('pan', function(e){
+        //이미지1이 pan 되었을 때 실행할 코드 
+        console.log(e.deltaX);  //deltaX : x축으로 슬라이드한 거리
+        //만약에 그림을 왼쪽으로 슬라이드할 때, 큰 div 박스를 왼쪽으로 이동시켜라
+        if(e.deltaX<-1){
+          $('.slide-container').css('transform','translateX('+e.deltaX+'px)');
+          
+          //만약에 이사람이 마우스를 놓으면, 두번째 사진으로 변해야 함.
+          if(e.isFinal){
+            $('.slide-container').addClass('transforming');
+            $('.slide-container').css('transform','translateX(-100vw)');
+          //  setTimeout : 원하는 시간 후에 코드를 실행할 수 있는 함수
+            setTimeout(function(){
+              // 코드를 0.5초후에 실행할거라서
+              $('.slide-container').removeClass('transforming');
+            },500);
+            
+          }
+        }
+     
+      });
+
+
+    </script>
    
     
     <div class="container mt-5">

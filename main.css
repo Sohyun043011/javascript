@@ -17,7 +17,11 @@
 .slide-container{
     width:300vw;
     /* 왼쪽으로 이동시키는 CSS속성 */
-    transition: transform 1s;
+    /* transition: transform 1s; */
+}
+.transforming{
+    /* 터치가 끝난 순간에만 transition 속성을 넣고 싶어서  */
+    transition:transform 0.5s;
 }
 .slide-box{
     width:100vw;
