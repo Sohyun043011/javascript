@@ -1,0 +1,178 @@
+<!-- homework -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery  -->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./jquery-ui.min.js"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="./index.css" rel="stylesheet">
+    <title>HOME</title>
+</head>
+<body>
+    <div class="container main">
+        <!-- 메인 -->
+        <div class="top">
+            <input type="text" class="search-input" placeholder="검색어를 입력해주세요.">
+        </div>
+        <div class="side-main">
+            <!-- 상품리스트 -->
+            <div class="right-container">
+                <h1 class="my-5">모든 상품 리스트</h1>
+            <div class="card-group">
+                <div class="card">
+                  <img src="" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                  </div>
+                </div>
+                <div class="card">
+                    <img src="" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    </div>
+                    <div class="card-footer">
+                      <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="left-container">
+                <!-- 장바구니 -->
+                <h1 class="my-5">장바구니</h1>
+                <div class="card" style="width: 18rem; " >
+                    
+                    <div class="card-body" >
+                      <div class="black-background">이곳에 상품을 놓아주세요</div>
+                      <div class="cart"></div>
+                      <p class="card-text" style="padding: 20px; text-align: right;" id = "sum">총 합계 0원</p>
+                      <button class="btn btn-primary" style="width: 100%;">구매하기</button>
+                    </div>
+                  </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+       $(function() {
+            $.ajax({ type: 'get' , 
+                    url: 'resources1/store.json' , 
+                    success: function(data) {
+                        // 1. card 컨테이너에 data 넣어주기
+                        for(let i=0;i<data.products.length;i++){
+                            $('.card-img-top').eq(i).attr('src',"resources1/"+data.products[i].photo);
+                            $('.card-title').eq(i).html(data.products[i].product_name);
+                            $('.card-text').eq(i).html(data.products[i].brand_name);
+                            $('.card-footer').eq(i).html(data.products[i].price);
+                            console.log("resources1/"+data.products[i].photo);
+                        }
+                        // console.log(data.products[0].id);
+                    } 
+                   });
+       
+        });
+    
+        //2. 상품 검색 기능 - input에 검색어 입력시, 그 글자를 가지고 있는 상품만 보여줌
+        
+        $('.search-input').on('keydown',function(){
+            var text = $('.search-input').val();
+            $('.card').css('display','');
+            $.ajax({ type: 'get' , 
+                    url: 'resources1/store.json' , 
+                    success: function(data) {
+                        for(let i=0;i<data.products.length;i++){
+                            var f_text = $('.card-title').eq(i).html();
+                            if(f_text.indexOf(text)>=0&&text!=''){
+                                 var num = f_text.indexOf(text);
+                                // console.log(f_text);
+                                //찾은 경우만 보여줘야함.
+                                // 찾은 글자에 노란색 배경글씨??
+                                //<span class="yellow-t">찾은 글자</span>
+
+                            }
+                            else if(text==''){
+                                $('.card').css('display','');
+                                $('.card-group').eq(i).css('width','100%');
+                            }
+                            else{
+                                //아닌 경우 display none
+                                $('.card').eq(i).css('display','none');
+                                $('.card-group').eq(i).css('width','auto');
+                            }
+                        }
+                        
+                    } 
+                   });
+           
+            
+        });
+    
+        //3. 상품 드래그 드롭
+        //상품을 드래그해서 검은 박스에 놓기
+        // 드래그 해서 놓으면 장바구니 항목이 추가됨
+        $('.card').draggable({
+            revert:true,    //드래그 끝났을 때 제자리로 돌려놓음
+
+        });
+        $('.black-background').droppable({
+            drop:function(event,ui){
+                var item = $(ui.draggable); //내가 방금 드롭한 HTML 요소
+                $('.cart').append(item);
+                // 장바구니 개별 항목의 주문 수량 변경
+                // 장바구니 항목에 있는 것들의 최종 합계 금액
+                item.after(`
+                <label>수량을 선택하세요<input type="number" class="total" min="1" max="10" value="1"> </label>
+                `)
+                // console.log(item);  //콘솔 출력 대신장바구니에 항목 추가되도록
+                $('.total').on('change',function(){
+                    // console.log('값이 변경되었습니다.');
+                    var count = $('.total').val();
+                    console.log(count);
+                    
+                    // var price = $('.card-footer').html();
+                    // console.log(price);
+                    // var sum = parseInt(price)*parseInt(count);
+                    console.log(sum);
+                });
+            }
+        });
+
+
+
+        //4. 장바구니에 있는 것들 각각 갯수*원래 가격 총 합 게산해서 총합계로 나타내기
+        
+    </script>
+    
+</body>
+</html>

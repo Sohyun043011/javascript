@@ -1,0 +1,42 @@
+
+.search-input{
+    width:100%;
+    margin-top:20px;
+    padding:5px;
+    display: block;
+}
+.side-main{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    padding:20px;
+
+}
+.right-container .card{
+    margin:20px;
+}
+.right-container{
+
+    float:left;
+    width:70%;
+    z-index: 5;
+    
+}
+.left-container{
+    /* float:left; */
+}
+.black-background{
+    padding: 20px;
+    width: 80%;
+    display: block;
+    margin: auto;
+    background:black;
+    color: white;
+
+}
+.total{
+    /* 총 수량 설정 */
+    border:black solid 1px;
+
+}
