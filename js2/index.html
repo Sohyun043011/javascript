@@ -1,0 +1,132 @@
+<button id="버튼">버튼</button>
+<script>
+    // 'use strict';   //js strict mode 
+    // console.log(this);  
+    // //1. window (나를 담고 있는 object) 
+    // //함수나 변수를 전역공간에서 만들면 {window} 에 보관함. (즉, window가 object)
+
+
+    // //2. 오브젝트 안의 함수(메서드) 안에서 this : 그 함수를 가지고 있는 오브젝트를 뜻함
+    // var object = {
+    //     data:'Kim',
+    //     함수 : function(){
+    //         console.log(this);  
+            
+    //     }
+    // }
+
+    // var object2={
+    //     data : {
+    //         함수(){
+    //             console.log(this);
+    //         }
+    //         //신 문법 arrow function()=> 특징 : this 값을 함수 밖에 있던것(window) 그대로 씀
+    //     }
+    // }
+
+    // object.data;
+    // object.함수();      //오브젝트 내의 함수 쓰는 법
+    // object2.data.함수();
+
+    // //3. 새로 생성되는 오브젝트(인스턴스)
+    // var something = {};
+
+    // function constructor(){
+    //     this.name = 'KIM';
+    //     //constructor로 부터 새로 생성되는 object(=instance)
+    // }
+
+    // var object3 = new constructor();
+
+    //4. 이벤트 리스너 안에서는 e.currentTarget 과 같음
+    // document.getElementById('버튼').addEventListener('click',
+    // function(e){
+    //     // console.log(this); 
+    //     // console.log(e.currentTarget);   //지금 이벤트 동작하는 곳
+    //     // //둘다 <button id="버튼">버튼</button> HTML 요소 출력됨
+
+    //     var a = [1,2,3];
+    //     //번외1) forEach 안의 콜백 함수에서 this를 쓰면?
+    //     // 그냥 일반함수와 똑같이 취급하여 window가 출력됨.
+    //     a.forEach(function(data){
+    //         console.log(this);
+    //     });
+    // });
+
+    //번외2) 오브젝트 내에서 콜백함수를 쓴다면 this는?
+    //window가 나옴 왜? 그냥 쌩 근본없는 함수라고 생각하면 됨.
+    //1번 Case라고 생각.
+
+    // var 오브젝트 = {
+    //     이름들 : ['김','이','박'],
+    //     함수 : function(){
+    //         console.log(this);
+    //         //이거는 오브젝트가 출력됨
+    //         오브젝트.이름들.forEach(()=>{
+    //             console.log(this);
+    //             //이거는 맨 위 오브젝트 this가 그대로 출력됨
+    //             //arrow function은 내부 this값을 변화시키지 않음.
+    //             //위에서 그대로 가져옴.
+    //         })
+    //         오브젝트.이름들.forEach(function(){
+    //             console.log(this);
+    //             //이거는 window가 출력됨
+    //         })
+            
+    //     }
+    // }
+    // 오브젝트.함수();
+
+    //함수 만드는 법1)
+    // function 함수(){
+
+    // }
+
+    //함수 만드는 법 2)
+    // var 함수 = function(){
+
+    // }
+
+    //더 쉽게 만들기 : ES6 Arrow function 
+    //장점1) 입출력 할때 보기 쉬움
+    //장점2) 파라미터가 하나 뿐일 때 소괄호 생략 가능
+    //장점3) 코드 한줄이면 중괄호도 생략 가능
+    // var 함수 = a=>console.log(a+10);
+    // 함수(5);
+
+    // [1,2,3,4].forEach(a=>console.log(a));
+
+
+    //Q1.
+    var 사람 = {
+        name : '손흥민',
+        sayHi : function(){
+            console.log('안녕 나는 '+this.name);
+        }
+    }
+
+    사람.sayHi();
+
+    //Q2.위에 있는 자료 : 자료라는 object 중괄호{} 내에 작성 금지..
+    var 자료 = {
+        data : [1,2,3,4,5]
+    }
+
+    자료.전부더하기 = function(){
+        var sum = 0;
+        this.data.forEach(function(a){
+            sum+=a;
+            
+        });
+        console.log(sum);
+    }
+
+    자료.전부더하기();
+    //Q3. setTimeout
+    document.getElementById('버튼').addEventListener('click',function(){
+        setTimeout(()=>console.log(this.innerHTML),1000);
+    });
+ 
+
+
+</script>
